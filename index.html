@@ -1,0 +1,45 @@
+<html>
+    <head>
+      <title>Create Video list of CSSConf Australia with Vue</title>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+      <link src="style.css"></link>
+      <script src="main.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            
+            <video-player :videos="videos" :active-video="activeVideo"></video-player>
+        </div>
+        <template id="video-player">
+            <div class="video-player">
+              
+               <div class="video-container">
+                <div class="video-wrap">
+                  <iframe :src="this.activeVideo.youtubeURL"  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+                <h3>{{ this.activeVideo.title }}</h3>
+                <div class="row">
+                  <p>{{ this.activeVideo.views }} views</p>
+                  <p>{{ this.activeVideo.likes }} <button @click="addLike">Like</button></p>
+                </div>
+                <div class="describe">{{ this.activeVideo.describe }}</div>
+              </div> 
+              <div class="video-list">
+                <div @click="chooseVideo(video)" v-for="video in videos" :key="video.id" class="thumbnail">
+                  <div class="thumbnail-img">
+                    <img :src="video.thumbnail" :alt="video.title" />
+                  </div>
+                  <div class="thumbnail-info">
+                    <h4>{{ video.title }}</h4>
+                    <div class="thumbnail-views">
+                      <span>{{ video.speaker }}</span>
+                      <span>{{ video.views }} Views</span>
+                    </div>
+                    <div class="thumbnail-describe">{{ video.describe }}</div>
+                  </div>
+                </div>
+              </div> 
+            </div>
+          </template>
+    </body>
+</html>
